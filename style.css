@@ -1,0 +1,360 @@
+/* Estilo general */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  background: white; /* Asegura que no se mezcle con las tareas */
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  z-index: 10; /* Asegura que quede sobre los demás elementos */
+  border-bottom: 2px solid #ccc; /* Opción para separar visualmente */
+}
+
+header h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.container {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 600px; /* Ajusta según necesites */
+  overflow-y: auto; /* Habilita el scroll vertical */
+  border: 1px solid #ccc; /* Opcional para mejor visualización */
+  border-radius: 4px;
+  background: white;
+  width: 80%;
+  
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Entrada y botón */
+.todo-input {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+#taskInput {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#addTaskButton {
+  padding: 10px;
+  background-color: #5cb85c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#addTaskButton:hover {
+  background-color: #4cae4c;
+}
+
+/* Lista de tareas */
+#taskList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f9f9f9;
+  padding: 30px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+li .task-text {
+  flex-grow: 1; /* Ocupa todo el espacio disponible */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  /*margin-right: 15px; /* Separación entre el texto y los botones */
+  max-width: 100%; /* Ajusta el tamaño máximo */
+  display: inline-block;
+  position: relative; /* Para que el tooltip se posicione correctamente */
+  min-width: 0; /* Permite que se aplique correctamente el truncamiento */
+}
+
+li .task-text:hover::after {
+  content: attr(data-fulltext); /* Usa el atributo personalizado */
+  position: absolute;
+  left: 0;
+  top: 100%;
+  white-space: normal;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 14px;
+  max-width: 400px;
+  z-index: 10;
+  display: block;
+}
+
+li.complete .task-text {
+  text-decoration: line-through;
+  color: #888;
+}
+
+/* Botones de acciones */
+.actions {
+  display: flex;
+  gap: 10px; /* Separación entre los botones */
+}
+
+button.edit,
+button.delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+button.edit i {
+  color: #0275d8;
+}
+
+button.delete i {
+  color: #dc3545;
+}
+
+button.edit:hover,
+button.delete:hover {
+  transform: scale(1.2);
+}
+
+/* Contador */
+#taskCounter {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #666;
+  position: sticky;
+  bottom: 0;
+  background: white; /* Para que no se mezcle con las tareas */
+  padding: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  border-top: 2px solid #ccc; /* Opción para separar visualmente */
+}
+
+.complete {
+  text-decoration: line-through;
+  color: #888;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  #taskInput {
+    font-size: 14px;
+  }
+
+  #addTaskButton {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  li {
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f9f9f9;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+
+  button.edit,
+  button.delete {
+    width: 25px;
+    height: 25px;
+  }
+
+  button.edit i,
+  button.delete i {
+    font-size: 14px;
+  }
+}
+
+/* Estilos del switch */
+.theme-switch {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  width: 70px;
+  height: 30px;
+}
+.theme-switch input {
+  /*display: none;*/
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  width: 60px;
+  height: 30px;
+}
+.slider {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #ddd;
+  border-radius: 30px;
+  transition: 0.4s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.sun-icon, .moon-icon {
+  font-size: 18px;
+  transition: 0.3s;
+  position: absolute;
+}
+
+.sun-icon {
+  color: #fbc02d;
+  left: 6px;
+  padding-right: 10px;
+}
+
+.moon-icon {
+  color: #ffffff;
+  right: 8px;
+  opacity: 0;
+}
+
+/* Cambio de colores en modo oscuro */
+.dark-mode .slider {
+  background: #444;
+}
+
+.dark-mode .moon-icon {
+  opacity: 1;
+}
+
+.dark-mode .sun-icon {
+  opacity: 0;
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%);
+  transition: 0.4s;
+}
+input:checked + .slider {
+  background: #222;
+}
+input:checked + .slider::before {
+  left: 25px;
+}
+
+
+/* Modo oscuro */
+body.dark-mode {
+  background: #121212;
+  color: #ffffff;
+}
+
+.dark-mode header {
+  background: #1e1e1e;
+  border-bottom: 2px solid #555;
+}
+
+.dark-mode header h1 {
+  color: #ffffff;
+}
+
+/* Contenedor principal */
+.dark-mode .container {
+  background: #121212;
+  transition: 0.3s;
+}
+
+.dark-mode li {
+  background: #1e1e1e;
+
+}
+
+/* Estilos para las tareas en modo oscuro */
+.dark-mode .task {
+  background: #2c2c2c;
+  color: #ffffff;
+  border: 1px solid #444;
+}
+
+/* Input de agregar tareas en modo oscuro */
+.dark-mode input[type="text"] {
+  background: #333;
+  color: white;
+  border: 1px solid #555;
+}
+
+/* Botón en modo oscuro */
+.dark-mode button {
+  background: #444;
+  color: white;
+  border: none;
+}
+
+/* Íconos en modo oscuro */
+.dark-mode .edit-icon {
+  color: #bbb;
+}
+.dark-mode .delete-icon {
+  color: #ff5555;
+}
+
+.dark-mode #taskCounter {
+  background: #121212; /* Para que no se mezcle con las tareas */
+  border-top: 2px solid #1e1e1e; /* Opción para separar visualmente */
+}
+
